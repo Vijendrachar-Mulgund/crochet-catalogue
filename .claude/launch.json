@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "catalogue",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["/tmp/catalogue-preview/serve.py"],
+      "port": 4173
+    }
+  ]
+}

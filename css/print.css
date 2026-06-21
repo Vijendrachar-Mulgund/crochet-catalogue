@@ -1,0 +1,94 @@
+/* print.css — applied only when printing (media="print").
+   Hides the app UI and lays out the branded catalogue for PDF export. */
+
+@page {
+  size: A4;
+  margin: 14mm 12mm;
+}
+
+/* When printing, show only the print surface. */
+#app { display: none !important; }
+#toast { display: none !important; }
+#print-area { display: block !important; }
+
+body {
+  background: #fff !important;
+  color: #2c2522;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.print-doc { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+/* ---- Cover ---- */
+.ph-cover {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+  border-bottom: 3px solid #7d9b85;
+}
+.ph-logo { width: 96px; height: 96px; max-width: 96px; max-height: 96px; object-fit: contain; }
+.ph-biz { font-size: 30px; font-weight: 800; color: #5f7d68; line-height: 1.1; letter-spacing: 0.5px; }
+.ph-tag { font-size: 14px; color: #738379; margin-top: 4px; }
+.ph-title { font-size: 17px; font-weight: 700; margin-top: 12px; color: #2c352e; }
+.ph-intro { font-size: 13px; color: #44504a; margin-top: 4px; max-width: 60ch; }
+.ph-note {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5f7d68;
+  background: #e8efe9;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* ---- Sections ---- */
+.ph-section { margin-bottom: 22px; break-inside: avoid-page; }
+.ph-cat {
+  font-size: 17px;
+  font-weight: 700;
+  color: #5f7d68;
+  margin: 0 0 12px;
+  padding-bottom: 5px;
+  border-bottom: 1.5px solid #d7e3da;
+}
+
+.ph-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ph-card {
+  display: flex;
+  gap: 12px;
+  border: 1px solid #dde7df;
+  border-radius: 10px;
+  padding: 10px;
+  break-inside: avoid;
+}
+.ph-thumb {
+  width: 120px;
+  height: 120px;
+  flex: 0 0 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e8efe9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+}
+.ph-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.ph-info { flex: 1; min-width: 0; }
+.p-name { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+.p-price { font-size: 15px; font-weight: 800; color: #5f7d68; margin-bottom: 4px; }
+.p-desc { font-size: 12px; color: #44504a; margin-bottom: 4px; line-height: 1.4; }
+.p-specs { font-size: 11.5px; color: #5f6b63; line-height: 1.5; }
+.p-specs b { color: #3a463f; }
+
+/* Avoid orphaned single cards splitting awkwardly */
+.ph-section h2 { break-after: avoid; }

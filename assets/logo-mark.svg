@@ -1,0 +1,18 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Charming Yarns">
+  <circle cx="50" cy="50" r="50" fill="#7d9b85"/>
+  <g fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="23" y="34" width="33" height="39" rx="4" stroke-dasharray="4 4.5"/>
+    <line x1="49" y1="31" x2="54" y2="43"/>
+    <line x1="62" y1="31" x2="60" y2="44"/>
+    <circle cx="64" cy="60" r="18"/>
+    <path d="M50 54 q14 -5 26 7"/>
+    <path d="M48 64 q18 -3 31 6"/>
+    <path d="M50 74 q12 7 26 -2"/>
+    <path d="M57 45 q-7 16 4 33"/>
+    <path d="M71 47 q9 14 -2 31"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="48" cy="30" r="2.6"/>
+    <circle cx="63" cy="30" r="2.6"/>
+  </g>
+</svg>
