@@ -1,5 +1,8 @@
-/* print.css — applied only when printing (media="print").
-   Hides the app UI and lays out the branded catalogue for PDF export. */
+/* print.css — applied only when printing.
+   Hides the app UI and lays out the branded catalogue for PDF export.
+   Everything is scoped under @media print so it never affects the on-screen UI. */
+
+@media print {
 
 @page {
   size: A4;
@@ -92,3 +95,5 @@ body {
 
 /* Avoid orphaned single cards splitting awkwardly */
 .ph-section h2 { break-after: avoid; }
+
+}
