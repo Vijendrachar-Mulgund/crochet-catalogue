@@ -3,8 +3,7 @@ import logoMark from "../assets/logo-mark.svg";
 
 const NAV: { label: string; path: string }[] = [
   { label: "Catalogue", path: "/" },
-  { label: "Categories", path: "/categories" },
-  { label: "Create a Share", path: "/share" },
+  { label: "Share", path: "/share" },
   { label: "Settings", path: "/settings" },
 ];
 

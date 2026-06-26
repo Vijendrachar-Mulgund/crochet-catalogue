@@ -1,8 +1,9 @@
 // SettingsView — business details (used on PDF covers) and backup/restore.
-import { useEffect, useRef, useState, type FormEvent } from 'react';
-import type { BackupData, Settings } from '../types';
-import { resizeImage } from '../lib/image';
-import { useToast } from './Toast';
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import type { BackupData, Settings } from "../types";
+import { resizeImage } from "../lib/image";
+import { useToast } from "./Toast";
+import { Categories } from "./Categories";
 
 export function SettingsView({ onRestored }: { onRestored: () => void }) {
   const toast = useToast();
@@ -12,7 +13,7 @@ export function SettingsView({ onRestored }: { onRestored: () => void }) {
 
   useEffect(() => {
     // TODO: load settings from a data source.
-    const s: Settings = { businessName: '', tagline: '', logoDataUrl: null };
+    const s: Settings = { businessName: "", tagline: "", logoDataUrl: null };
     setSettings(s);
     setLogoDataUrl(s.logoDataUrl);
   }, []);
@@ -26,23 +27,19 @@ export function SettingsView({ onRestored }: { onRestored: () => void }) {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // TODO: persist settings to a data source.
-    toast('Settings saved', 'ok');
+    toast("Settings saved", "ok");
   }
 
   function exportBackup() {
     // TODO: export data from a data source.
-    toast('Backup downloaded', 'ok');
+    toast("Backup downloaded", "ok");
   }
 
   function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (
-      !confirm(
-        'Restoring will replace everything currently in the catalogue. Continue?',
-      )
-    ) {
-      e.target.value = '';
+    if (!confirm("Restoring will replace everything currently in the catalogue. Continue?")) {
+      e.target.value = "";
       return;
     }
     const reader = new FileReader();
@@ -51,16 +48,16 @@ export function SettingsView({ onRestored }: { onRestored: () => void }) {
       try {
         payload = JSON.parse(reader.result as string);
       } catch {
-        toast('That file could not be read.', 'err');
+        toast("That file could not be read.", "err");
         return;
       }
       // TODO: restore `payload` into a data source.
       void payload;
-      toast('Catalogue restored', 'ok');
+      toast("Catalogue restored", "ok");
       onRestored();
     };
     reader.readAsText(file);
-    e.target.value = '';
+    e.target.value = "";
   }
 
   if (!settings) return null;
@@ -70,9 +67,7 @@ export function SettingsView({ onRestored }: { onRestored: () => void }) {
       <div className="view-head">
         <div>
           <h1>Settings</h1>
-          <p className="sub">
-            Your business details appear on the cover of every PDF you share.
-          </p>
+          <p className="sub">Your business details appear on the cover of every PDF you share.</p>
         </div>
       </div>
 
@@ -90,29 +85,18 @@ export function SettingsView({ onRestored }: { onRestored: () => void }) {
           <label>
             Tagline <span className="hint">optional</span>
           </label>
-          <input
-            type="text"
-            name="tagline"
-            placeholder="e.g. Handmade with love"
-            defaultValue={settings.tagline}
-          />
+          <input type="text" name="tagline" placeholder="e.g. Handmade with love" defaultValue={settings.tagline} />
         </div>
         <div className="field">
           <label>Logo</label>
           <div className="photo-pick">
-            <div className="logo-preview">
-              {logoDataUrl ? <img src={logoDataUrl} alt="" /> : '🧶'}
-            </div>
+            <div className="logo-preview">{logoDataUrl ? <img src={logoDataUrl} alt="" /> : "🧶"}</div>
             <div>
               <div className="field" style={{ marginBottom: 8 }}>
                 <input type="file" accept="image/*" onChange={handleLogo} />
               </div>
               {logoDataUrl && (
-                <button
-                  type="button"
-                  className="btn btn-sm btn-danger"
-                  onClick={() => setLogoDataUrl(null)}
-                >
+                <button type="button" className="btn btn-sm btn-danger" onClick={() => setLogoDataUrl(null)}>
                   Remove logo
                 </button>
               )}
@@ -127,27 +111,24 @@ export function SettingsView({ onRestored }: { onRestored: () => void }) {
       </form>
 
       <div className="panel" style={{ marginTop: 22 }}>
-        <h2 style={{ margin: '0 0 6px', fontSize: 18 }}>Backup &amp; restore</h2>
-        <p className="hint" style={{ color: 'var(--muted)', margin: '0 0 16px' }}>
-          Your catalogue is saved on this computer in this browser. Export a
-          backup file regularly and keep it safe — you can restore it here or
-          move it to another computer.
+        <Categories />
+      </div>
+
+      <div className="panel" style={{ marginTop: 22 }}>
+        <h2 style={{ margin: "0 0 6px", fontSize: 18 }}>Backup &amp; restore</h2>
+        <p className="hint" style={{ color: "var(--muted)", margin: "0 0 16px" }}>
+          Your catalogue is saved on this computer in this browser. Export a backup file regularly and keep it safe —
+          you can restore it here or move it to another computer.
         </p>
         <div className="btn-row">
           <button className="btn btn-primary" onClick={exportBackup}>
             ⬇ Export backup
           </button>
-          <button className="btn" onClick={() => importRef.current?.click()}>
+          <button className="btn btn-secondary" onClick={() => importRef.current?.click()}>
             ⬆ Restore from backup
           </button>
         </div>
-        <input
-          type="file"
-          accept="application/json"
-          hidden
-          ref={importRef}
-          onChange={handleImport}
-        />
+        <input type="file" accept="application/json" hidden ref={importRef} onChange={handleImport} />
       </div>
     </>
   );

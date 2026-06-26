@@ -46,6 +46,7 @@ button {
   top: 0;
   z-index: 10;
 }
+
 .brand {
   display: flex;
   align-items: center;
@@ -100,12 +101,6 @@ button {
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
-@media (max-width: 820px) {
-  .view-head {
-    justify-content: center;
-    text-align: center;
-  }
-}
 
 .view-head h1 {
   font-size: 24px;
@@ -136,11 +131,7 @@ button {
   border-color: var(--accent);
   color: #fff;
 }
-@media (max-width: 820px) {
-  .btn-primary {
-    width: 100%;
-  }
-}
+
 .btn-primary:hover {
   background: var(--accent-dark);
   color: #fff;
@@ -422,11 +413,7 @@ button {
   gap: 24px;
   align-items: start;
 }
-@media (max-width: 820px) {
-  .share-cols {
-    grid-template-columns: 1fr;
-  }
-}
+
 .select-list {
   display: flex;
   flex-direction: column;
@@ -560,4 +547,29 @@ button {
 .signout-btn:hover {
   background: var(--accent-soft);
   color: var(--accent-dark);
+}
+
+/* Mobile Experience */
+@media (max-width: 820px) {
+  .nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .view-head {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .share-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+
+  .btn-secondary {
+    width: 100%;
+  }
 }
