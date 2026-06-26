@@ -12,7 +12,7 @@ export function Catalogue() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [categoryFilter] = useState("all");
   const [form, setForm] = useState<FormMode>(null);
 
   function load() {
@@ -79,20 +79,6 @@ export function Catalogue() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <select
-          className="search"
-          style={{ flex: "0 0 200px" }}
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-        >
-          <option value="all">All categories</option>
-          {categories.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-          <option value="none">Uncategorised</option>
-        </select>
       </div>
 
       <div id="catalogue-list">
@@ -102,10 +88,6 @@ export function Catalogue() {
             <p>
               No products yet. Click <b>+ Add product</b> to add your mother's first creation.
             </p>
-          </div>
-        ) : !filtered.length ? (
-          <div className="empty">
-            <p>No products match your search.</p>
           </div>
         ) : (
           order.map((cat) => {
