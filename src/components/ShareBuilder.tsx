@@ -1,7 +1,6 @@
 // ShareBuilder — pick products, set options, and save a branded PDF.
 import { useEffect, useRef, useState } from 'react';
 import type { Category, Product, Settings } from '../types';
-import { store } from '../store';
 import { formatPrice } from '../lib/format';
 import { printShare } from '../share/share';
 import { useToast } from './Toast';
@@ -17,10 +16,11 @@ export function ShareBuilder() {
   const introRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    Promise.all([
-      store.getCategories(),
-      store.getProducts(),
-      store.getSettings(),
+    // TODO: load categories, products and settings from a data source.
+    Promise.resolve<[Category[], Product[], Settings]>([
+      [],
+      [],
+      { businessName: '', tagline: '', logoDataUrl: null },
     ]).then(([cats, prods, s]) => {
       setCategories(cats);
       setProducts(prods);

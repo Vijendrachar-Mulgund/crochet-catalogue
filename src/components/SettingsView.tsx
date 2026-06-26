@@ -1,7 +1,6 @@
 // SettingsView — business details (used on PDF covers) and backup/restore.
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import type { BackupData, Settings } from '../types';
-import { store } from '../store';
 import { resizeImage } from '../lib/image';
 import { useToast } from './Toast';
 
@@ -12,10 +11,10 @@ export function SettingsView({ onRestored }: { onRestored: () => void }) {
   const importRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    store.getSettings().then((s) => {
-      setSettings(s);
-      setLogoDataUrl(s.logoDataUrl);
-    });
+    // TODO: load settings from a data source.
+    const s: Settings = { businessName: '', tagline: '', logoDataUrl: null };
+    setSettings(s);
+    setLogoDataUrl(s.logoDataUrl);
   }, []);
 
   function handleLogo(e: React.ChangeEvent<HTMLInputElement>) {
@@ -26,34 +25,13 @@ export function SettingsView({ onRestored }: { onRestored: () => void }) {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const f = e.currentTarget;
-    store
-      .saveSettings({
-        businessName: (
-          f.elements.namedItem('businessName') as HTMLInputElement
-        ).value.trim(),
-        tagline: (f.elements.namedItem('tagline') as HTMLInputElement).value.trim(),
-        logoDataUrl,
-      })
-      .then(() => toast('Settings saved', 'ok'));
+    // TODO: persist settings to a data source.
+    toast('Settings saved', 'ok');
   }
 
   function exportBackup() {
-    store.exportData().then((data) => {
-      const blob = new Blob([JSON.stringify(data, null, 2)], {
-        type: 'application/json',
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      const stamp = new Date().toISOString().slice(0, 10);
-      a.href = url;
-      a.download = 'crochet-catalogue-backup-' + stamp + '.json';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      toast('Backup downloaded', 'ok');
-    });
+    // TODO: export data from a data source.
+    toast('Backup downloaded', 'ok');
   }
 
   function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
@@ -76,13 +54,10 @@ export function SettingsView({ onRestored }: { onRestored: () => void }) {
         toast('That file could not be read.', 'err');
         return;
       }
-      store
-        .importData(payload)
-        .then(() => {
-          toast('Catalogue restored', 'ok');
-          onRestored();
-        })
-        .catch((err: Error) => toast(err.message || 'Restore failed', 'err'));
+      // TODO: restore `payload` into a data source.
+      void payload;
+      toast('Catalogue restored', 'ok');
+      onRestored();
     };
     reader.readAsText(file);
     e.target.value = '';

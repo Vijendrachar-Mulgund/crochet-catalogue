@@ -1,7 +1,6 @@
 // ProductForm — add/edit a single product.
 import { useState, type FormEvent } from 'react';
 import type { Category, Product } from '../types';
-import { store } from '../store';
 import { resizeImage } from '../lib/image';
 import { useToast } from './Toast';
 
@@ -67,10 +66,10 @@ export function ProductForm({ product, categories, onSaved, onCancel }: Props) {
       record.id = product.id;
       record.createdAt = product.createdAt;
     }
-    store.saveProduct(record).then(() => {
-      toast(isEdit ? 'Product updated' : 'Product added', 'ok');
-      onSaved();
-    });
+    // TODO: save product (`record`) to a data source.
+    void record;
+    toast(isEdit ? 'Product updated' : 'Product added', 'ok');
+    onSaved();
   }
 
   return (

@@ -1,13 +1,9 @@
-import { useEffect } from "react";
-import { store } from "./store";
 import { ToastProvider } from "./components/Toast";
 import { RouterProvider } from "react-router/dom";
 import { router } from "./router";
 
 function App() {
-  useEffect(() => {
-    store.seedIfEmpty().catch((err) => console.error(err));
-  }, []);
+  // TODO: seed/initialise a data source here once one is wired up.
 
   return (
     <ToastProvider>

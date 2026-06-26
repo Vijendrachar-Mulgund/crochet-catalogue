@@ -1,7 +1,6 @@
 // Categories — manage category list: add, rename, reorder, delete.
 import { useEffect, useMemo, useState } from 'react';
 import type { Category, Product } from '../types';
-import { store } from '../store';
 import { useToast } from './Toast';
 
 export function Categories() {
@@ -13,12 +12,11 @@ export function Categories() {
   const [renameValue, setRenameValue] = useState('');
 
   function load() {
-    Promise.all([store.getCategories(), store.getProducts()]).then(
-      ([cats, prods]) => {
-        setCategories(cats);
-        setProducts(prods);
-      },
-    );
+    // TODO: load categories and products from a data source.
+    Promise.resolve<[Category[], Product[]]>([[], []]).then(([cats, prods]) => {
+      setCategories(cats);
+      setProducts(prods);
+    });
   }
 
   useEffect(load, []);
@@ -34,15 +32,15 @@ export function Categories() {
   function doAdd() {
     const name = newName.trim();
     if (!name) return;
-    store.addCategory(name).then(() => {
-      setNewName('');
-      toast('Category added', 'ok');
-      load();
-    });
+    // TODO: add category to a data source.
+    setNewName('');
+    toast('Category added', 'ok');
+    load();
   }
 
-  function move(id: number, direction: 'up' | 'down') {
-    store.moveCategory(id, direction).then(load);
+  function move(_id: number, _direction: 'up' | 'down') {
+    // TODO: reorder categories in a data source.
+    load();
   }
 
   function startRename(cat: Category) {
@@ -54,10 +52,9 @@ export function Categories() {
     const name = renameValue.trim();
     setRenamingId(null);
     if (name && name !== cat.name) {
-      store.updateCategory({ ...cat, name }).then(() => {
-        toast('Category renamed', 'ok');
-        load();
-      });
+      // TODO: rename category in a data source.
+      toast('Category renamed', 'ok');
+      load();
     }
   }
 
@@ -74,10 +71,9 @@ export function Categories() {
           ' will become Uncategorised (not deleted).'
         : 'Delete "' + cat.name + '"?';
     if (!confirm(msg)) return;
-    store.deleteCategory(cat.id).then(() => {
-      toast('Category deleted', 'ok');
-      load();
-    });
+    // TODO: delete category from a data source.
+    toast('Category deleted', 'ok');
+    load();
   }
 
   return (

@@ -1,7 +1,6 @@
 // Catalogue — product gallery with search, category filter, and add/edit form.
 import { useEffect, useMemo, useState } from 'react';
 import type { Category, Product } from '../types';
-import { store } from '../store';
 import { formatPrice } from '../lib/format';
 import { useToast } from './Toast';
 import { ProductForm } from './ProductForm';
@@ -17,12 +16,11 @@ export function Catalogue() {
   const [form, setForm] = useState<FormMode>(null);
 
   function load() {
-    Promise.all([store.getCategories(), store.getProducts()]).then(
-      ([cats, prods]) => {
-        setCategories(cats);
-        setProducts(prods);
-      },
-    );
+    // TODO: load categories and products from a data source.
+    Promise.resolve<[Category[], Product[]]>([[], []]).then(([cats, prods]) => {
+      setCategories(cats);
+      setProducts(prods);
+    });
   }
 
   useEffect(load, []);
@@ -38,10 +36,9 @@ export function Catalogue() {
 
   function handleDelete(p: Product) {
     if (!confirm('Delete "' + p.name + '"? This cannot be undone.')) return;
-    store.deleteProduct(p.id!).then(() => {
-      toast('Product deleted', 'ok');
-      load();
-    });
+    // TODO: delete product from a data source.
+    toast('Product deleted', 'ok');
+    load();
   }
 
   if (form) {
