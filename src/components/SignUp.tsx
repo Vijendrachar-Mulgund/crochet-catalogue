@@ -3,8 +3,8 @@ import { useState, type SyntheticEvent } from "react";
 import { Link, useNavigate } from "react-router";
 import logoMark from "../assets/logo-mark.svg";
 import { useToast } from "./Toast";
-import { signUpNewUser } from "../services/auth/sign-up";
-import { insertData } from "../services/database/insert-data";
+import { signUpNewUser } from "../services/auth/signup";
+import { AuthError } from "@supabase/supabase-js";
 
 export function SignUp() {
   const toast = useToast();
@@ -42,29 +42,17 @@ export function SignUp() {
     // TODO: create the account in a data source / auth provider.
 
     try {
-      const { data, error } = await signUpNewUser(email, password);
+      const data: false | AuthError | null | undefined = await signUpNewUser(
+        firstName,
+        lastName,
+        email,
+        password,
+        phone,
+      );
 
-      if (error) {
-        console.error(error);
+      if (!data) {
+        throw new Error("Failed to sign up");
       }
-
-      const payload = {
-        tableName: "users",
-        data: {
-          firstname: firstName,
-          lastname: lastName,
-          email,
-          phone_number: phone,
-        },
-      };
-      // Insert Data in to the DB when Signup is complete
-      const isDataInserted: boolean = await insertData(payload);
-
-      if (!isDataInserted || !data) {
-        console.error("Failed to insert user data");
-      }
-
-      console.log("Sign up successful");
     } catch (err: any) {
       console.error("Sign up: Something went wrong: ", err);
     }

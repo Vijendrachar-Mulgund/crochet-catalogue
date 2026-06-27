@@ -4,7 +4,6 @@ import type { Category, Product } from "../types";
 import { formatPrice } from "../lib/format";
 import { useToast } from "./Toast";
 import { ProductForm } from "./ProductForm";
-import { supabase } from "../services/database/connection";
 
 type FormMode = { editing: Product | null } | null;
 
@@ -17,7 +16,6 @@ export function Catalogue() {
   const [form, setForm] = useState<FormMode>(null);
 
   function load() {
-    console.log(supabase);
     // TODO: load categories and products from a data source.
     Promise.resolve<[Category[], Product[]]>([[], []]).then(([cats, prods]) => {
       setCategories(cats);
