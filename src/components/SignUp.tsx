@@ -3,17 +3,17 @@ import { useState, type SyntheticEvent } from "react";
 import { Link, useNavigate } from "react-router";
 import logoMark from "../assets/logo-mark.svg";
 import { useToast } from "./Toast";
+import { signUpNewUser } from "../services/auth/sign-up";
 
 export function SignUp() {
   const toast = useToast();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = e.currentTarget;
-    const get = (name: string) =>
-      (f.elements.namedItem(name) as HTMLInputElement).value;
+    const get = (name: string) => (f.elements.namedItem(name) as HTMLInputElement).value;
 
     const firstName = get("firstName").trim();
     const lastName = get("lastName").trim();
@@ -22,14 +22,7 @@ export function SignUp() {
     const password = get("password");
     const confirmPassword = get("confirmPassword");
 
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !phone ||
-      !password ||
-      !confirmPassword
-    ) {
+    if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
       toast("Please fill in all fields", "err");
       return;
     }
@@ -40,7 +33,19 @@ export function SignUp() {
 
     setSubmitting(true);
     // TODO: create the account in a data source / auth provider.
-    void { firstName, lastName, email, phone, password };
+
+    try {
+      const { data, error } = await signUpNewUser(email, password);
+
+      if (error) {
+        console.error(error);
+      }
+
+      console.log("the sign updata -> ", data);
+    } catch (err: any) {
+      console.error("Sign up: Something went wrong: ", err);
+    }
+
     toast("Account created", "ok");
     setSubmitting(false);
     navigate("/");
@@ -56,46 +61,22 @@ export function SignUp() {
         <div className="field-row">
           <div className="field">
             <label>First name</label>
-            <input
-              type="text"
-              name="firstName"
-              autoComplete="given-name"
-              placeholder="Jane"
-              required
-            />
+            <input type="text" name="firstName" autoComplete="given-name" placeholder="Jane" required />
           </div>
           <div className="field">
             <label>Last name</label>
-            <input
-              type="text"
-              name="lastName"
-              autoComplete="family-name"
-              placeholder="Doe"
-              required
-            />
+            <input type="text" name="lastName" autoComplete="family-name" placeholder="Doe" required />
           </div>
         </div>
 
         <div className="field">
           <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            autoComplete="email"
-            placeholder="you@example.com"
-            required
-          />
+          <input type="email" name="email" autoComplete="email" placeholder="you@example.com" required />
         </div>
 
         <div className="field">
           <label>Phone number</label>
-          <input
-            type="tel"
-            name="phone"
-            autoComplete="tel"
-            placeholder="+91 98765 43210"
-            required
-          />
+          <input type="tel" name="phone" autoComplete="tel" placeholder="+91 98765 43210" required />
         </div>
 
         <div className="field-row">
@@ -121,12 +102,7 @@ export function SignUp() {
           </div>
         </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary"
-          style={{ width: "100%" }}
-          disabled={submitting}
-        >
+        <button type="submit" className="btn btn-primary" style={{ width: "100%" }} disabled={submitting}>
           {submitting ? "Creating account…" : "Create account"}
         </button>
 
