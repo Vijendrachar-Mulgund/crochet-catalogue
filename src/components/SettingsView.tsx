@@ -1,5 +1,5 @@
 // SettingsView — business details (used on PDF covers) and backup/restore.
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import type { BackupData, Settings } from "../types";
 import { resizeImage } from "../lib/image";
 import { useToast } from "./Toast";
@@ -24,7 +24,7 @@ export function SettingsView({ onRestored }: { onRestored: () => void }) {
     resizeImage(file, 512, 0.9).then(setLogoDataUrl);
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     // TODO: persist settings to a data source.
     toast("Settings saved", "ok");

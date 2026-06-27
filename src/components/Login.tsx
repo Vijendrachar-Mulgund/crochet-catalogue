@@ -1,5 +1,5 @@
 // Login — email + password sign-in form, matching the app's sage theme.
-import { useState, type FormEvent } from "react";
+import { useState, type SyntheticEvent } from "react";
 import { Link, useNavigate } from "react-router";
 import logoMark from "../assets/logo-mark.svg";
 import { useToast } from "./Toast";
@@ -9,7 +9,7 @@ export function Login() {
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = e.currentTarget;
     const email = (f.elements.namedItem("email") as HTMLInputElement).value.trim();

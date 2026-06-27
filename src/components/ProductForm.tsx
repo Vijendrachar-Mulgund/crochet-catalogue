@@ -1,5 +1,5 @@
 // ProductForm — add/edit a single product.
-import { useState, type FormEvent } from 'react';
+import { useState, type SyntheticEvent } from 'react';
 import type { Category, Product } from '../types';
 import { resizeImage } from '../lib/image';
 import { useToast } from './Toast';
@@ -25,7 +25,7 @@ export function ProductForm({ product, categories, onSaved, onCancel }: Props) {
     resizeImage(file, 1400, 0.82).then(setPhotoDataUrl);
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = e.currentTarget;
     const name = (f.elements.namedItem('name') as HTMLInputElement).value.trim();
