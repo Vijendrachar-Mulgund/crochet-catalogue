@@ -1,15 +1,26 @@
 // Categories — manage category list: add, rename, reorder, delete.
-import { useEffect, useMemo, useState } from 'react';
-import type { Category, Product } from '../types';
-import { useToast } from './Toast';
+import { useEffect, useMemo, useState } from "react";
+import type { Category, Product } from "../types";
+import { useToast } from "./Toast";
+
+/**
+ * 
+  const STARTER_CATEGORIES = [
+  'Amigurumi & Toys',
+  'Bags & Pouches',
+  'Home & Decor',
+  'Wearables',
+  'Accessories',
+];
+ */
 
 export function Categories() {
   const toast = useToast();
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  const [newName, setNewName] = useState('');
+  const [newName, setNewName] = useState("");
   const [renamingId, setRenamingId] = useState<number | null>(null);
-  const [renameValue, setRenameValue] = useState('');
+  const [renameValue, setRenameValue] = useState("");
 
   function load() {
     // TODO: load categories and products from a data source.
@@ -33,12 +44,12 @@ export function Categories() {
     const name = newName.trim();
     if (!name) return;
     // TODO: add category to a data source.
-    setNewName('');
-    toast('Category added', 'ok');
+    setNewName("");
+    toast("Category added", "ok");
     load();
   }
 
-  function move(_id: number, _direction: 'up' | 'down') {
+  function move(_id: number, _direction: "up" | "down") {
     // TODO: reorder categories in a data source.
     load();
   }
@@ -53,7 +64,7 @@ export function Categories() {
     setRenamingId(null);
     if (name && name !== cat.name) {
       // TODO: rename category in a data source.
-      toast('Category renamed', 'ok');
+      toast("Category renamed", "ok");
       load();
     }
   }
@@ -66,13 +77,13 @@ export function Categories() {
           cat.name +
           '"? Its ' +
           n +
-          ' product' +
-          (n === 1 ? '' : 's') +
-          ' will become Uncategorised (not deleted).'
+          " product" +
+          (n === 1 ? "" : "s") +
+          " will become Uncategorised (not deleted)."
         : 'Delete "' + cat.name + '"?';
     if (!confirm(msg)) return;
     // TODO: delete category from a data source.
-    toast('Category deleted', 'ok');
+    toast("Category deleted", "ok");
     load();
   }
 
@@ -82,8 +93,7 @@ export function Categories() {
         <div>
           <h1>Categories</h1>
           <p className="sub">
-            Organise products into groups. Reorder them to set the order they
-            appear in the catalogue and PDFs.
+            Organise products into groups. Reorder them to set the order they appear in the catalogue and PDFs.
           </p>
         </div>
       </div>
@@ -97,7 +107,7 @@ export function Categories() {
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') doAdd();
+            if (e.key === "Enter") doAdd();
           }}
         />
         <button className="btn btn-primary" onClick={doAdd}>
@@ -124,17 +134,14 @@ export function Categories() {
                     onChange={(e) => setRenameValue(e.target.value)}
                     onBlur={() => commitRename(c)}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') commitRename(c);
-                      if (e.key === 'Escape') setRenamingId(null);
+                      if (e.key === "Enter") commitRename(c);
+                      if (e.key === "Escape") setRenamingId(null);
                     }}
                   />
                 ) : (
                   <span className="cat-name">
-                    {c.name}{' '}
-                    <span
-                      className="count"
-                      style={{ color: 'var(--muted)', fontWeight: 500 }}
-                    >
+                    {c.name}{" "}
+                    <span className="count" style={{ color: "var(--muted)", fontWeight: 500 }}>
                       ({n})
                     </span>
                   </span>
@@ -143,7 +150,7 @@ export function Categories() {
                   className="btn btn-sm btn-ghost"
                   disabled={i === 0}
                   title="Move up"
-                  onClick={() => move(c.id, 'up')}
+                  onClick={() => move(c.id, "up")}
                 >
                   ↑
                 </button>
@@ -151,17 +158,14 @@ export function Categories() {
                   className="btn btn-sm btn-ghost"
                   disabled={i === categories.length - 1}
                   title="Move down"
-                  onClick={() => move(c.id, 'down')}
+                  onClick={() => move(c.id, "down")}
                 >
                   ↓
                 </button>
                 <button className="btn btn-sm" onClick={() => startRename(c)}>
                   Rename
                 </button>
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => handleDelete(c)}
-                >
+                <button className="btn btn-sm btn-danger" onClick={() => handleDelete(c)}>
                   Delete
                 </button>
               </li>

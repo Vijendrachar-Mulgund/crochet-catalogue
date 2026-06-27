@@ -4,6 +4,8 @@ import { Catalogue } from "../components/Catalogue";
 import { Categories } from "../components/Categories";
 import { ShareBuilder } from "../components/ShareBuilder";
 import { SettingsView } from "../components/SettingsView";
+import { Login } from "../components/Login";
+import { SignUp } from "../components/SignUp";
 
 function SettingsRoute() {
   const navigate = useNavigate();
@@ -11,6 +13,9 @@ function SettingsRoute() {
 }
 
 export const router = createBrowserRouter([
+  // Auth pages — full-screen, outside the app shell.
+  { path: "/login", element: <Login /> },
+  { path: "/signup", element: <SignUp /> },
   {
     path: "/",
     element: <Layout />,
