@@ -1,21 +1,31 @@
 import { useLocation, useNavigate } from "react-router";
 import logoMark from "../assets/logo-mark.svg";
+import profileImage from "../assets/profile.png";
 
 const NAV: { label: string; path: string }[] = [
   { label: "Catalogue", path: "/" },
   { label: "Share", path: "/share" },
-  { label: "Settings", path: "/settings" },
 ];
 
 export function Header() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const handleOnClickProfileImage = () => {
+    navigate("/settings");
+  };
+
+  const handleOnClickLogoImage = () => {
+    navigate("/");
+  };
+
   return (
     <header className="topbar">
       <div className="brand">
-        <img className="brand-mark" src={logoMark} alt="" />
-        <span className="brand-text">Charming Yarns</span>
+        <img className="brand-mark" src={logoMark} alt="charming yarns" onClick={handleOnClickLogoImage} />
+      </div>
+      <div className="brand">
+        <img className="brand-mark" src={profileImage} alt="profile image" onClick={handleOnClickProfileImage} />
       </div>
       <nav className="nav">
         {NAV.map((n) => (

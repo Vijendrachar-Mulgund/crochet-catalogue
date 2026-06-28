@@ -1,8 +1,8 @@
 // Login — email + password sign-in form, matching the app's sage theme.
 import { useState, type SyntheticEvent } from "react";
 import { Link, useNavigate } from "react-router";
-import logoMark from "../assets/logo-mark.svg";
 import { useToast } from "./Toast";
+import logoMark from "../assets/logo-mark.svg";
 
 export function Login() {
   const toast = useToast();
@@ -37,32 +37,15 @@ export function Login() {
 
         <div className="field">
           <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            autoComplete="email"
-            placeholder="you@example.com"
-            required
-          />
+          <input type="email" name="email" autoComplete="email" placeholder="you@example.com" required />
         </div>
 
         <div className="field">
           <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            autoComplete="current-password"
-            placeholder="Your password"
-            required
-          />
+          <input type="password" name="password" autoComplete="current-password" placeholder="Your password" required />
         </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary"
-          style={{ width: "100%" }}
-          disabled={submitting}
-        >
+        <button type="submit" className="btn btn-primary" style={{ width: "100%" }} disabled={submitting}>
           {submitting ? "Signing in…" : "Sign in"}
         </button>
 
