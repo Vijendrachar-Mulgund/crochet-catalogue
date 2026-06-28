@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router";
 import logoMark from "../assets/logo-mark.svg";
 import profileImage from "../assets/profile.png";
+import { signOut } from "../services/auth/sign-out";
 
 const NAV: { label: string; path: string }[] = [
   { label: "Catalogue", path: "/" },
@@ -19,6 +20,10 @@ export function Header() {
     navigate("/");
   };
 
+  const handleOnClickSignOut = () => {
+    signOut();
+  };
+
   return (
     <header className="topbar">
       <div className="brand">
@@ -26,6 +31,9 @@ export function Header() {
       </div>
       <div className="brand">
         <img className="brand-mark" src={profileImage} alt="profile image" onClick={handleOnClickProfileImage} />
+        <button className="btn" onClick={handleOnClickSignOut}>
+          logout
+        </button>
       </div>
       <nav className="nav">
         {NAV.map((n) => (

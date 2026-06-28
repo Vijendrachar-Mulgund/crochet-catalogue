@@ -1,10 +1,10 @@
 // SignUp — account creation form, matching the app's sage theme.
 import { useState, type SyntheticEvent } from "react";
 import { Link, useNavigate } from "react-router";
-import logoMark from "../assets/logo-mark.svg";
 import { useToast } from "./Toast";
 import { signUpNewUser } from "../services/auth/signup";
-import { AuthError } from "@supabase/supabase-js";
+
+import logoMark from "../assets/logo-mark.svg";
 
 export function SignUp() {
   const toast = useToast();
@@ -39,20 +39,9 @@ export function SignUp() {
     }
 
     setSubmitting(true);
-    // TODO: create the account in a data source / auth provider.
 
     try {
-      const data: false | AuthError | null | undefined = await signUpNewUser(
-        firstName,
-        lastName,
-        email,
-        password,
-        phone,
-      );
-
-      if (!data) {
-        throw new Error("Failed to sign up");
-      }
+      await signUpNewUser(firstName, lastName, email, password, phone);
     } catch (err: any) {
       console.error("Sign up: Something went wrong: ", err);
     }

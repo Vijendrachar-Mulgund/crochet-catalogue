@@ -1,7 +1,7 @@
 import { create, StoreApi, UseBoundStore } from "zustand";
 import { User } from "@supabase/supabase-js";
 
-export const useUser: UseBoundStore<StoreApi<any>> = create((set) => ({
+export const useUserStore: UseBoundStore<StoreApi<any>> = create((set) => ({
   userID: null,
   user: null,
 

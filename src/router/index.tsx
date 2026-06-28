@@ -6,6 +6,7 @@ import { ShareBuilder } from "../components/ShareBuilder";
 import { SettingsView } from "../components/SettingsView";
 import { Login } from "../components/Login";
 import { SignUp } from "../components/SignUp";
+import { requireAuth, redirectIfAuthed } from "../services/auth/auth-guard";
 
 function SettingsRoute() {
   const navigate = useNavigate();
@@ -14,11 +15,12 @@ function SettingsRoute() {
 
 export const router = createBrowserRouter([
   // Auth pages — full-screen, outside the app shell.
-  { path: "/login", element: <Login /> },
-  { path: "/signup", element: <SignUp /> },
+  { path: "/login", element: <Login />, loader: redirectIfAuthed },
+  { path: "/signup", element: <SignUp />, loader: redirectIfAuthed },
   {
     path: "/",
     element: <Layout />,
+    loader: requireAuth,
     children: [
       { index: true, element: <Catalogue /> },
       { path: "categories", element: <Categories /> },
