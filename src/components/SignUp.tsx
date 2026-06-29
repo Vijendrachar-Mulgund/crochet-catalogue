@@ -2,7 +2,7 @@
 import { useState, type SyntheticEvent } from "react";
 import { Link, useNavigate } from "react-router";
 import { useToast } from "./Toast";
-import { signUpNewUser } from "../services/auth/signup";
+import { signUpNewUser } from "../services/auth/sign-up";
 
 import logoMark from "../assets/logo-mark.svg";
 

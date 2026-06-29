@@ -2,6 +2,8 @@
 import { useState, type SyntheticEvent } from "react";
 import { Link, useNavigate } from "react-router";
 import { useToast } from "./Toast";
+
+import { signIn } from "../services/auth/sign-in";
 import logoMark from "../assets/logo-mark.svg";
 
 export function Login() {
@@ -9,7 +11,7 @@ export function Login() {
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = e.currentTarget;
     const email = (f.elements.namedItem("email") as HTMLInputElement).value.trim();
@@ -21,8 +23,8 @@ export function Login() {
     }
 
     setSubmitting(true);
-    // TODO: authenticate against a data source / auth provider.
-    void { email, password };
+    await signIn(email, password);
+
     toast("Signed in", "ok");
     setSubmitting(false);
     navigate("/");

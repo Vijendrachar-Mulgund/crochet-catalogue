@@ -1,6 +1,6 @@
 import { supabase } from "../../services/database/connection";
 import { useUserStore } from "../../store/user";
-import { redirect } from "react-router";
+import { router } from "../../router";
 
 export async function signOut() {
   const { error } = await supabase.auth.signOut();
@@ -8,7 +8,8 @@ export async function signOut() {
   if (!error) {
     useUserStore.setState({ userID: null, user: null });
     localStorage.clear();
-    redirect("/login");
+    router.navigate("/login");
+    console.log("User Log out successful");
     return;
   }
 

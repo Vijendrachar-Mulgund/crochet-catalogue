@@ -1,5 +1,6 @@
 import { supabase } from "../database/connection";
 import { insert } from "../database/insert";
+import { useUserStore } from "../../store/user";
 
 export async function signUpNewUser(
   firstName: string,
@@ -41,6 +42,7 @@ export async function signUpNewUser(
   }
 
   localStorage.setItem("userID", userID);
+  useUserStore.setState({ userID: userID, user: data.user });
 
   console.log("User sign up successful");
 }
