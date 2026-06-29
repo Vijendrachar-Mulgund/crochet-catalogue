@@ -1,17 +1,12 @@
-import { createBrowserRouter, useNavigate } from "react-router";
+import { createBrowserRouter } from "react-router";
 import { Layout } from "../components/Layout";
 import { Catalogue } from "../components/Catalogue";
 import { Categories } from "../components/Categories";
 import { ShareBuilder } from "../components/ShareBuilder";
-import { SettingsView } from "../components/SettingsView";
 import { Login } from "../components/Login";
 import { SignUp } from "../components/SignUp";
 import { requireAuth, redirectIfAuthed } from "../services/auth/auth-guard";
-
-function SettingsRoute() {
-  const navigate = useNavigate();
-  return <SettingsView onRestored={() => navigate("/")} />;
-}
+import { Profile } from "../components/Profile";
 
 export const router = createBrowserRouter([
   // Auth pages — full-screen, outside the app shell.
@@ -25,7 +20,7 @@ export const router = createBrowserRouter([
       { index: true, element: <Catalogue /> },
       { path: "categories", element: <Categories /> },
       { path: "share", element: <ShareBuilder /> },
-      { path: "settings", element: <SettingsRoute /> },
+      { path: "profile", element: <Profile /> },
     ],
   },
 ]);

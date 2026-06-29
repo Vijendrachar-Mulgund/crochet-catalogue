@@ -279,6 +279,7 @@ button {
   box-shadow: var(--shadow);
   padding: 22px;
   max-width: 720px;
+  margin: 10px 0;
 }
 .field {
   margin-bottom: 16px;

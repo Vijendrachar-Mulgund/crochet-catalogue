@@ -13,7 +13,7 @@ export function Header() {
   const { pathname } = useLocation();
 
   const handleOnClickProfileImage = () => {
-    navigate("/settings");
+    navigate("/profile");
   };
 
   const handleOnClickLogoImage = () => {
