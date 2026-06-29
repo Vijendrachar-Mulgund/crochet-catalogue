@@ -2,7 +2,7 @@
 // Use `requireAuth` on protected routes and `redirectIfAuthed` on auth pages.
 import { redirect } from "react-router";
 import type { Session } from "@supabase/supabase-js";
-import { supabase } from "../database/connection";
+import { supabase } from "../connection/connection";
 import { useUserStore } from "../../store/user";
 
 // Loader guard: ensures a session exists, otherwise sends the user to /login

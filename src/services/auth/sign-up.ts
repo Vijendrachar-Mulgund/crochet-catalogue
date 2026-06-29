@@ -30,10 +30,10 @@ export async function signUpNewUser(
   };
 
   // Insert Data in to the DB when Signup is complete
-  const isDataInserted: boolean = await insert(payload);
+  const { error: insertError } = await insert(payload);
 
-  if (!isDataInserted) {
-    return error;
+  if (insertError) {
+    return insertError;
   }
 
   const userID: string | undefined = data.user?.id;

@@ -1,9 +1,10 @@
 // Shared domain types for the Crochet Catalogue.
 
 export interface Category {
-  id: number;
-  name: string;
-  sortOrder: number;
+  id?: number;
+  category_name: string;
+  created_at?: Date;
+  user_id: string;
 }
 
 export interface Product {
@@ -36,4 +37,4 @@ export interface BackupData {
   products: Product[];
 }
 
-export type MoveDirection = 'up' | 'down';
+export type MoveDirection = "up" | "down";

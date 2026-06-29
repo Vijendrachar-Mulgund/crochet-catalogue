@@ -1,4 +1,4 @@
-import { supabase } from "../database/connection";
+import { supabase } from "../connection/connection";
 import { useUserStore } from "../../store/user";
 
 export async function signIn(email: string, password: string) {

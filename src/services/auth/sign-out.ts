@@ -1,4 +1,4 @@
-import { supabase } from "../../services/database/connection";
+import { supabase } from "../connection/connection";
 import { useUserStore } from "../../store/user";
 import { router } from "../../router";
 
