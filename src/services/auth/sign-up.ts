@@ -1,4 +1,4 @@
-import { supabase } from "../database/connection";
+import { supabase } from "../connection/connection";
 import { insert } from "../database/insert";
 import { useUserStore } from "../../store/user";
 
@@ -21,6 +21,7 @@ export async function signUpNewUser(
   const payload = {
     tableName: "users",
     data: {
+      id: data?.user?.id,
       firstname: firstName,
       lastname: lastName,
       email,
