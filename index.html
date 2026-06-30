@@ -1,63 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Charming Yarns — Catalogue</title>
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/print.css" media="print" />
-</head>
-<body>
-  <!-- ===== App (hidden when printing a share) ===== -->
-  <div id="app">
-    <header class="topbar">
-      <div class="brand">
-        <img class="brand-mark" src="assets/logo-mark.svg" alt="" />
-        <span class="brand-text">Charming Yarns</span>
-      </div>
-      <nav class="nav">
-        <button class="nav-btn" data-view="catalogue">Catalogue</button>
-        <button class="nav-btn" data-view="categories">Categories</button>
-        <button class="nav-btn" data-view="share">Create a Share</button>
-        <button class="nav-btn" data-view="settings">Settings</button>
-      </nav>
-    </header>
-
-    <main id="main" class="main"></main>
-  </div>
-
-  <!-- ===== Print surface (filled by share.js, only visible when printing) ===== -->
-  <div id="print-area"></div>
-
-  <!-- ===== Login overlay (shown only in shared online mode) ===== -->
-  <div id="login-overlay" class="login-overlay" hidden>
-    <form class="login-card" id="login-form">
-      <img class="login-logo" src="assets/logo-mark.svg" alt="" />
-      <h1>Charming Yarns</h1>
-      <p class="login-sub">Sign in to manage the catalogue</p>
-      <div class="field"><label>Email</label><input type="email" id="login-email" autocomplete="username" required></div>
-      <div class="field"><label>Password</label><input type="password" id="login-password" autocomplete="current-password" required></div>
-      <button type="submit" class="btn btn-primary" id="login-btn" style="width:100%">Sign in</button>
-      <p class="login-error" id="login-error" hidden></p>
-    </form>
-  </div>
-
-  <!-- Toast / message area -->
-  <div id="toast" class="toast" hidden></div>
-
-  <!-- Hidden file inputs reused across the app -->
-  <input type="file" id="import-file" accept="application/json" hidden />
-
-  <!-- Config + optional Supabase library (shared online mode) -->
-  <script src="js/config.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- Data backends, then the dispatcher that chooses between them -->
-  <script src="js/local-store.js"></script>
-  <script src="js/cloud-store.js"></script>
-  <script src="js/store.js"></script>
-
-  <script src="js/share.js"></script>
-  <script src="js/app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>crochet-catalogue</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
